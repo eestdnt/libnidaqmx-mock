@@ -16,7 +16,7 @@ INC_DIR ?= ./inc
 SRC_DIR ?= ./src
 
 # Target list
-TARGET_NAME = libhello.so
+TARGET_NAME = libnidaqmx.so
 TARGET = $(BIN_DIR)/$(TARGET_NAME)
 TEST_PROGRAM = $(BIN_DIR)/test
 ifeq ($(OS), Windows_NT)
@@ -32,13 +32,13 @@ LIBS =
 # Compilation and linking flags for test program
 CC_TEST_OPTS := $(CC_TEST_OPTS) -I $(INC_DIR) -Wall
 LD_TEST_OPTS = -L $(BIN_DIR)
-LIBS_TEST_OPTS = -lhello
+LIBS_TEST_OPTS = -lnidaqmx
 
 # Header files
-HEADERS = hello.h
+HEADERS = defs.h nidaqmx.h
 
 # Source files
-SRC = hello.c
+SRC = nidaqmx.c
 TEST_SRC = test.c
 
 # Source files with full paths

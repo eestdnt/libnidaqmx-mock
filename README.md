@@ -1,6 +1,6 @@
 # libnidaqmx-mock
 
-Mocking of libnidaqmx for unit testing of code using the library
+Stubbing of libnidaqmx for unit testing of code using the library
 
 ## Prequisites
 
