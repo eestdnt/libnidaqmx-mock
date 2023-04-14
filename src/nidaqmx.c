@@ -58,14 +58,13 @@ int32 DAQmxStopTask (TaskHandle taskHandle)
 
 int32 DAQmxGetTaskNumChans(TaskHandle taskHandle, uInt32 *data)
 {
-    *data = 1;
+    *data = 2;
     return 0;
 }
 
 int32 DAQmxReadAnalogF64 (TaskHandle taskHandle, int32 numSampsPerChan, float64 timeout, bool32 fillMode, float64 readArray[], uInt32 arraySizeInSamps, int32 *sampsPerChanRead, bool32 *reserved)
 {
-    *sampsPerChanRead = 1;
-    memset(readArray, 0, sizeof(float64));
-    // readArray = malloc(sizeof(float64));
+    *sampsPerChanRead = numSampsPerChan;
+    memset(readArray, 0, arraySizeInSamps * sizeof(float64));
     return 0;
 }
