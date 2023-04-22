@@ -62,6 +62,11 @@ int32 DAQmxGetTaskNumChans(TaskHandle taskHandle, uInt32 *data)
     return 0;
 }
 
+int32 DAQmxResetDevice(const char deviceName[])
+{
+    return 0;
+}
+
 int32 DAQmxReadAnalogF64 (TaskHandle taskHandle, int32 numSampsPerChan, float64 timeout, bool32 fillMode, float64 readArray[], uInt32 arraySizeInSamps, int32 *sampsPerChanRead, bool32 *reserved)
 {
     *sampsPerChanRead = numSampsPerChan;

@@ -25,6 +25,7 @@ int main()
     assert((r = DAQmxWriteAnalogF64(task, 0, 0, 0.0, 0, (float64*)dat, &int32_var, &bool32_var)) == 0);
     assert((r = DAQmxStartTask(task)) == 0);
     assert((r = DAQmxStopTask(task)) == 0);
+    assert((r = DAQmxResetDevice("")) == 0);
 
     assert((r = DAQmxGetTaskNumChans(task, &uint32_var)) == 0);
     assert(uint32_var == 2);
