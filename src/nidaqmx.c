@@ -69,7 +69,14 @@ int32 DAQmxResetDevice(const char deviceName[])
 
 int32 DAQmxReadAnalogF64 (TaskHandle taskHandle, int32 numSampsPerChan, float64 timeout, bool32 fillMode, float64 readArray[], uInt32 arraySizeInSamps, int32 *sampsPerChanRead, bool32 *reserved)
 {
-    *sampsPerChanRead = numSampsPerChan;
+    if (numSampsPerChan < 0)
+    {
+        *sampsPerChanRead = arraySizeInSamps/2;
+    }
+    else
+    {
+        *sampsPerChanRead = numSampsPerChan;
+    }
     memset(readArray, 0, arraySizeInSamps * sizeof(float64));
     return 0;
 }
