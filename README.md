@@ -25,3 +25,9 @@ make install
 ```
 make test
 ```
+
+## Build for Windows
+
+```
+./build.sh windows
+```

@@ -7,22 +7,17 @@
 CC ?= gcc
 
 BUILD_DIR = ./build
-BUILD_TYPE ?= release
 
 # Directories
-BIN_DIR ?= $(BUILD_DIR)/$(BUILD_TYPE)/bin
-OBJ_DIR ?= $(BUILD_DIR)/$(BUILD_TYPE)/obj
+BIN_DIR ?= $(BUILD_DIR)/bin
+OBJ_DIR ?= $(BUILD_DIR)/obj
 INC_DIR ?= ./inc
 SRC_DIR ?= ./src
 
 # Target list
-TARGET_NAME = libnidaqmx.so
+TARGET_NAME ?= libnidaqmx.so
 TARGET = $(BIN_DIR)/$(TARGET_NAME)
 TEST_PROGRAM = $(BIN_DIR)/test
-ifeq ($(OS), Windows_NT)
-	TARGET := $(TARGET).exe
-	TEST_PROGRAM := $(TEST_PROGRAM).exe
-endif
 
 # Compilation and linking flags for library
 CC_OPTS := $(CC_OPTS) -I $(INC_DIR) -Wall -fpic
