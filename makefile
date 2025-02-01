@@ -11,30 +11,31 @@ BUILD_DIR = ./build
 # Directories
 BIN_DIR ?= $(BUILD_DIR)/bin
 OBJ_DIR ?= $(BUILD_DIR)/obj
+TEST_DIR ?= $(BUILD_DIR)/test
 INC_DIR ?= ./inc
 SRC_DIR ?= ./src
+TEST_SRC_DIR ?= ./test
 
 # Target list
-TARGET_NAME ?= libnidaqmx.so
+TARGET_NAME = libnidaqmx.so
 TARGET = $(BIN_DIR)/$(TARGET_NAME)
-TEST_PROGRAM = $(BIN_DIR)/test
+TEST_LIST = test
 
 # Compilation and linking flags for library
 CC_OPTS := $(CC_OPTS) -I $(INC_DIR) -Wall -fpic
 LD_OPTS = -shared
 LIBS =
+TEST_LIBS = -lunity -lnidaqmx
 
 # Compilation and linking flags for test program
 CC_TEST_OPTS := $(CC_TEST_OPTS) -I $(INC_DIR) -Wall
 LD_TEST_OPTS = -L $(BIN_DIR)
-LIBS_TEST_OPTS = -lnidaqmx
 
 # Header files
 HEADERS = defs.h nidaqmx.h
 
 # Source files
 SRC = nidaqmx.c
-TEST_SRC = test.c
 
 # Source files with full paths
 HEADER_FILES = $(patsubst %.h, $(INC_DIR)/%.h, $(HEADERS))
@@ -42,38 +43,38 @@ HEADER_FILES = $(patsubst %.h, $(INC_DIR)/%.h, $(HEADERS))
 SRC_FILES = $(patsubst %.c, $(SRC_DIR)/%.c, $(SRC))
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC))
 
-TEST_SRC_FILES = $(patsubst %.c, $(SRC_DIR)/%.c, $(TEST_SRC))
-TEST_OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(TEST_SRC))
+# Test target file paths
+TEST_TARGETS = $(patsubst %, $(TEST_DIR)/%, $(TEST_LIST))
 
 # All targets
-all: $(TARGET)
+all: $(TARGET) $(TEST_TARGETS)
 
 # Main target
 $(TARGET): $(OBJ_FILES)
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(LD_OPTS) $^ -o $@
 
-# Test target
-$(TEST_PROGRAM): $(TARGET) $(TEST_OBJ_FILES)
-	@mkdir -p $(BIN_DIR)
-	$(CC) $(LD_TEST_OPTS) $(TEST_OBJ_FILES) -o $@ $(LIBS_TEST_OPTS)
-
 # Object file targets
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER_FILES)
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CC_OPTS) $< -c -o $@
 
-# Run test program
-test: $(TEST_PROGRAM)
-	$(TEST_PROGRAM)
+# Run all test targets
+test: $(TEST_TARGETS)
+	$(TEST_TARGETS)
+
+# Test targets
+$(TEST_DIR)/test: $(SRC_DIR)/nidaqmx.c $(TEST_SRC_DIR)/test.c
+	@mkdir -p $(TEST_DIR)
+	$(CC) $(CC_OPTS) $^ -o $@ $(TEST_LIBS)
 
 install: $(TARGET)
-	cp $(TARGET) /usr/lib/
-	chmod 0755 /usr/lib/$(TARGET_NAME)
+	cp $(TARGET) /usr/local/lib/
+	chmod 0755 /usr/local/lib/$(TARGET_NAME)
 	ldconfig
 
 uninstall:
-	rm /usr/lib/$(TARGET_NAME)
+	rm /usr/local/lib/$(TARGET_NAME)
 	ldconfig
 
 # Clean binary files
