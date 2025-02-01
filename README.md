@@ -1,13 +1,21 @@
 # libnidaqmx-mock
 
-Mocking/Stubbing of libnidaqmx for unit testing of code using the library
+Mocking/Stubbing of libnidaqmx for unit testing of code using the library.
 
-## Prequisites
+## Tools
 
-* make
-* gcc (or clang)
+- GCC
+- GNU Make
+- [Unity](https://github.com/ThrowTheSwitch/Unity)
+- Docker (for cross-compilation to Windows target)
 
-## Building
+## Test
+
+```
+make test
+```
+
+## Build
 
 ```
 make
@@ -18,12 +26,6 @@ make
 ```
 su
 make install
-```
-
-## Test
-
-```
-make test
 ```
 
 ## Build for Windows
