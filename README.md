@@ -7,7 +7,7 @@ Mocking/Stubbing of libnidaqmx for unit testing of code using the library.
 - GCC
 - GNU Make
 - [Unity](https://github.com/ThrowTheSwitch/Unity)
-- Docker (for cross-compilation to Windows target)
+- mingw-w64 (if compling for Windows)
 
 ## Test
 
@@ -31,5 +31,5 @@ make install
 ## Build for Windows
 
 ```
-./build.sh windows
+TARGET_NAME=libnidaqmx.dll CC=x86_64-w64-mingw32-gcc make
 ```

@@ -17,7 +17,7 @@ SRC_DIR ?= ./src
 TEST_SRC_DIR ?= ./test
 
 # Target list
-TARGET_NAME = libnidaqmx.so
+TARGET_NAME ?= libnidaqmx.so
 TARGET = $(BIN_DIR)/$(TARGET_NAME)
 TEST_LIST = test
 
